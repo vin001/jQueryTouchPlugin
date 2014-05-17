@@ -25,45 +25,45 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 		var rtpress = false;
 
 		if(_isAndroid || _isIDevice){
-			
+
 			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			
+
 			if(e.originalEvent.touches.length > 1){
 				clearInterval($.fn._touchLongClickObject);
 				rtpress = true;
 			}
-			
+
 			if(e.originalEvent.changedTouches.length > 1){
 				clearInterval($.fn._touchLongClickObject);
 				rtpress = true;
 			}
-			
+
 			e.currentTarget.component.prevX = touch.pageX;
 			e.currentTarget.component.prevY =touch.pageY;
-		
+
 		}else{
 			e.currentTarget.component.prevX = e.pageX;
 			e.currentTarget.component.prevY = e.pageY;
 		}
-		
+
 		if(!e.currentTarget.component.touchHandler){
-			
+
 			if(e.currentTarget.component.onPressStyle != null){
 				e.currentTarget.className = e.currentTarget.className + " " + e.currentTarget.component.onPressStyle;
 			}
-			
+
 			e.currentTarget.component.touchHandler = true;
 			this.component.moveTimePrev = new Date();
-			
+
 			$.fn._touchTimeEventObject = e.currentTarget.component;
-			
+
 			if(e.currentTarget.component.longClick && !rtpress){
 				var that = e.currentTarget.component;
 				that.eventHandler(e);
-				
+
 				$.fn._touchLongClickObject  = setInterval(function(e){
 					that.eventHandler(e);
-				},150);
+				},that.longCallBackTime);
 			}else{
 
 				$.fn._touchTimeObject = setTimeout(function(e){
@@ -78,24 +78,24 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 	$.fn._move = function(e){
 
 		var X,Y;
-		
+
 		if(_isAndroid || _isIDevice){
-		
+
 			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 			X = touch.pageX;
 			Y =touch.pageY;
-			
+
 		}else{
-		
+
 			X = e.pageX;
 			Y = e.pageY;
-			
+
 		}
 
 		if(e.currentTarget.component.touchHandler){
-		
-		
-			
+
+
+
 			if(eval(X - e.currentTarget.component.prevX) > e.currentTarget.component.moveDistance ||
 				eval(X - e.currentTarget.component.prevX) < -e.currentTarget.component.moveDistance ||
 				eval(Y - e.currentTarget.component.prevY) > e.currentTarget.component.moveDistance ||
@@ -103,7 +103,7 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 
 				e.currentTarget.className = e.currentTarget.component.defaultStyle;
 				e.currentTarget.component.touchHandler = false;
-				
+
 				if(e.currentTarget.component.longClick){
 					clearInterval($.fn._touchLongClickObject);
 				}
@@ -111,12 +111,12 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 
 			if(!e.currentTarget.component.longClick){
 				if(((new Date()) - e.currentTarget.component.moveTimePrev) > e.currentTarget.component.moveTime){
-	
+
 					e.currentTarget.className = e.currentTarget.component.defaultStyle;
 					e.currentTarget.component.touchHandler = false;
-	
+
 				}else{
-	
+
 					e.currentTarget.component.moveTimePrev = new Date();
 				}
 			}
@@ -125,12 +125,12 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 	};
 
 	$.fn._end = function(e){
-	
+
 		if(e.currentTarget.component.touchHandler){
 			if(e.currentTarget.component.onPressStyle != null){
 				e.currentTarget.className = e.currentTarget.component.defaultStyle;
 			}
-	
+
 			if(!e.currentTarget.component.longClick){
 				if(e.currentTarget.component.eventHandler != null){
 					e.currentTarget.component.eventHandler(e);
@@ -139,14 +139,14 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 				clearInterval(e.currentTarget.component.longObj);
 				clearInterval($.fn._touchLongClickObject);
 			}
-	
+
 			$.fn._touchObject = e.currentTarget.component;
 			setTimeout(function(){
 				$.fn._touchObject.touchHandler = false;clearInterval($.fn._touchLongClickObject);
 			},10);
 		}
 	};
-	
+
 	$.fn.touch = function(handler,classname) {
 
 		$(this).each(function(){
@@ -177,13 +177,19 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 		return this;
 	};
 
-	$.fn.longtouch = function(handler,classname) {
-	
+	$.fn.longtouch = function(handler,classname,options) {
+
 		$(this).each(function(){
+
+			if(options != undefined){
+				pollingTime = options["time"];
+			}else{
+				pollingTime = 500
+			}
 
 			this.component = this;
 			this.component.moveDistance = 6;
-			this.component.moveTime = 500;
+			this.component.moveTime = pollingTime;
 			this.component.moveTimePrev = null;
 			this.component.eventHandler = handler;
 			this.component.touchHandler = false;
@@ -192,7 +198,8 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 			this.component.onPressStyle = classname;
 			this.component.longClick = true;
 			this.component.longObj = null;
-			
+			this.component.longCallBackTime = pollingTime;
+
 		});
 
 		if(_isAndroid || _isIDevice){
@@ -209,5 +216,4 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 	};
 
  })(jQuery);
-
 
