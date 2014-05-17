@@ -41,7 +41,4 @@ $(document).ready(function(){
 	$(".btn_long").longtouch(function(){console.log("long touched Callback!!");},"btn_presss");
 	$(".btn_long_3000").longtouch(function(){console.log("long touched Callback!! -3000ms");},"btn_presss",{time:3000});
 
-<div class = "btn">Hello</div>
-<div class = "btn_long">long touch</div>
-<div class = "btn_long_3000">long touch 3000ms </div>
 
