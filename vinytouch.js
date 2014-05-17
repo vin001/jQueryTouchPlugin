@@ -1,4 +1,4 @@
-//vinytouch.js 1.5.1
+//vinytouch.js 1.0.0
 //https://github.com/vin001/jQueryTouchPlugin
 //Underscore may be freely distributed under the MIT license.
 
