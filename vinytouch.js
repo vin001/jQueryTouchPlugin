@@ -94,35 +94,21 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 
 		if(e.currentTarget.component.touchHandler){
 		
-			if(_isAndroid){
-				if(eval(X - e.currentTarget.component.prevX/1.2) > e.currentTarget.component.moveDistance ||
-					eval(X - e.currentTarget.component.prevX) < -e.currentTarget.component.moveDistance ||
-					eval(Y - e.currentTarget.component.prevY/1.2) > e.currentTarget.component.moveDistance ||
-					eval(Y - e.currentTarget.component.prevY) < -e.currentTarget.component.moveDistance){     
-	
-					e.currentTarget.className = e.currentTarget.component.defaultStyle;
-					e.currentTarget.component.touchHandler = false;
-					
-					if(e.currentTarget.component.longClick){
-						clearInterval($.fn._touchLongClickObject);
-					}
-				}
-			}else{
+		
 			
-				if(eval(X - e.currentTarget.component.prevX) > e.currentTarget.component.moveDistance ||
-					eval(X - e.currentTarget.component.prevX) < -e.currentTarget.component.moveDistance ||
-					eval(Y - e.currentTarget.component.prevY) > e.currentTarget.component.moveDistance ||
-					eval(Y - e.currentTarget.component.prevY) < -e.currentTarget.component.moveDistance){     
-	
-					e.currentTarget.className = e.currentTarget.component.defaultStyle;
-					e.currentTarget.component.touchHandler = false;
-					
-					if(e.currentTarget.component.longClick){
-						clearInterval($.fn._touchLongClickObject);
-					}
+			if(eval(X - e.currentTarget.component.prevX) > e.currentTarget.component.moveDistance ||
+				eval(X - e.currentTarget.component.prevX) < -e.currentTarget.component.moveDistance ||
+				eval(Y - e.currentTarget.component.prevY) > e.currentTarget.component.moveDistance ||
+				eval(Y - e.currentTarget.component.prevY) < -e.currentTarget.component.moveDistance){     
+
+				e.currentTarget.className = e.currentTarget.component.defaultStyle;
+				e.currentTarget.component.touchHandler = false;
+				
+				if(e.currentTarget.component.longClick){
+					clearInterval($.fn._touchLongClickObject);
 				}
 			}
-		
+
 			if(!e.currentTarget.component.longClick){
 				if(((new Date()) - e.currentTarget.component.moveTimePrev) > e.currentTarget.component.moveTime){
 	
