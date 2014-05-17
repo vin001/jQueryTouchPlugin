@@ -24,7 +24,7 @@ $(Selector).longtouch(function(){console.log("hello");},"pressed style css class
   if you want to control invoke time , you have to use option like below
   
 
-$(Selector).longtouch(function(){console.log("hello");},"btn_presss",{time:200});
+$(Selector).longtouch(function(){console.log("hello");},"pressed style css class name",{time:200});
 
 ============================================
 
