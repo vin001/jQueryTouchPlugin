@@ -35,7 +35,7 @@ this library tested in Android 4.0+ , iOS 4.0 + , Chrome , Safari (dont support 
 =============================================
 
 example)
-
+<xmp>
 <HTML>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="vinytouch.js"></script>
@@ -79,3 +79,4 @@ div{
 <div class = "btn_long_3000">long touch 3000ms </div>
 </BODY>
 </HTML>
+</xmp>
