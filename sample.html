@@ -7,6 +7,7 @@
 
 $(document).ready(function(){
 	$(".btn").touch(function(){alert("hello");},"btn_presss");
+	$(".btn_long").longtouch(function(){console.log("hello");},"btn_presss");
 });
 
 //-->
@@ -16,6 +17,9 @@ $(document).ready(function(){
 .btn{
 	background-color:blue;
 }
+.btn_long{
+	background-color:green;
+}
 .btn_presss{
 	background-color:red;
 }
@@ -23,6 +27,8 @@ $(document).ready(function(){
 
 <BODY>
 <div class = "btn">Hello</div>
+
+<div class = "btn_long">long touch</div>
 </BODY>
 
 </HTML>
