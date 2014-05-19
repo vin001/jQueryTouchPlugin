@@ -184,7 +184,7 @@ var _isAndroid = (/android/gi).test(navigator.appVersion),
 			if(options != undefined){
 				pollingTime = options["time"];
 			}else{
-				pollingTime = 100
+				pollingTime = 100;
 			}
 
 			this.component = this;
